@@ -1,0 +1,79 @@
+<!--head and body blocks from base.html -->
+<!-- update page that shows up when you update a task -->
+{% extends 'base.html' %}
+
+{% block head %}
+
+<!-- simple stylesheet -->
+
+<style>
+body {
+    font-family: "Segoe-UI";
+    background-color: #f8fafc;
+    color: #1e293b;
+    margin: 0;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.content {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+}
+
+h1 {
+    font-family: "Segoe-UI" ;
+    color: #0f172a; margin-bottom: 2rem;
+}
+
+form {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+input {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    outline: none;
+}
+
+input[type="submit"] {
+    background-color: #32456e;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+input[type="submit"]:hover {
+    background-color: #1d4ed8;
+}
+
+</style>
+{% endblock %}
+
+<!-- linking the update fuction from app.py -->
+
+{% block body %}
+<div class="content">
+    <h1 align="center"> Update Task </h1>
+
+    <div class="form">
+        <form action="/update/{{task.id}}" method="POST" align="center">
+            <input type="text" name="content" id="content" value="{{task.content}}" align="center">
+            <input type="submit" value="Update Task" align="center">
+        </form>
+    </div>
+</div>
+{% endblock %}

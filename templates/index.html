@@ -1,0 +1,134 @@
+<!--head and body blocks from base.html-->
+
+{% extends 'base.html' %}
+
+{% block head %}
+
+<!-- simple style sheet for the main page-->
+
+<style>         
+
+body {
+    font-family: "Segoe-UI";
+    background-color: #f8fafc;
+    color: #1e293b;
+    margin: 0;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.content {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+}
+
+h1 { color: #0f172a; margin-bottom: 2rem; }
+
+h4 { color: #64748b; font-weight: 400; margin: 2rem 0; }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+    border: none !important;
+    
+}
+
+th {
+    text-align: center;
+    background-color: #f1f5f9;
+    padding: 12px;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid #e2e8f0;
+    vertical-align: middle;
+}
+
+
+td a {
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: inline-block;
+    margin: 2px 0;
+}
+
+a[href*="delete"] { color: #ef4444; }
+a[href*="update"] { color: #3b82f6; }
+td a:hover { text-decoration: underline; }
+
+form {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+input {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    outline: none;
+}
+
+input[type="submit"] {
+    background-color: #32456e;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+input[type="submit"]:hover {
+    background-color: #1d4ed8;
+}
+
+    </style>
+{% endblock %}
+
+<!-- table that displays tasks; linking add, update, and delete functions from app.py-->
+
+{% block body %}
+<div class="content">
+    <h1 align="center"> Task Manager </h1>
+    {% if tasks|length < 1 %}
+    <h4 align="center"> There are no tasks.</h4>
+    {% else %}
+    <table border="1" align="center">
+        <tr>
+        <th>Task</th>
+        <th>Added</th>
+        <th>Actions</th>
+    </tr>
+    {% for task in tasks %}
+    <tr>
+        <td>{{ task.content }}</td>
+        <td>{{ task.date_created.date() }}</td>
+        <td>
+            <a href="/delete/{{task.id}}">Delete</a>
+            <br>
+            <a href="/update/{{task.id}}">Update</a>
+        </td>
+    </tr>
+    {% endfor %}
+    </table><br><br>
+    {% endif %}
+    
+    <form action="/" method="POST" align="center">
+        <input type="text" name="content" placeholder="Enter task here" align="center">
+        <input type="submit" value="Add Task" align="center">
+    </form>
+</div>
+{% endblock %}

@@ -10,8 +10,6 @@ import requests
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 db = SQLAlchemy(app)
-with app.app_context():
-        db.create_all()
 
 class Todo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -69,6 +67,7 @@ def update(id):
 
     else :
         return render_template('update.html', task=task)
+with app.app_context():
+        db.create_all()
 if __name__ == "__main__" :
-
     app.run(debug=True)
